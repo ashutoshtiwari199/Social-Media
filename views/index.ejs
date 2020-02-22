@@ -1,0 +1,196 @@
+<%- include ./partials/header.ejs%>
+
+<div class="jumbotron">
+  <h1 class="display-4">Wellcome To QuoteBook!</h1>
+  <p class="lead">This Plateform is way to express your feelings and thoughts in effective way!</p>
+  <hr class="my-4">
+  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+  <% if(isLoggedIn==false){ %>
+  <button type="button" class="btn-color btn btn-success" data-toggle="modal" data-target="#exampleModal">
+    Log In
+  </button>
+  <button type="button" class=" btn btn-info ml-2" style="border: none;" data-toggle="modal" data-target="#signupModal">
+    Sign up
+  </button>
+
+  <% }%>
+</div>
+
+<div class="container">
+  <h2 class="text-center display-4">Some featured <b>Quotes & Ideas</b></h2>
+</div>
+
+<br><br>
+
+
+<!-- Modal -->
+<form action="login" method="POST">
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Login credentials</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="text" placeholder="Username" name="username"
+            class="form-group py-1 w-100 px-1 border border-success rounded">
+          <br>
+          <input type="password" placeholder="Password" name="password"
+            class="form-group py-1 px-1 w-100 br-1 border border-success rounded">
+        </div>
+        <div class="modal-footer">
+          <input type="submit" class="btn btn-primary w-100">
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<form action="register" method="POST">
+  <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Signup</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="text" placeholder="name" name="name"
+            class="form-group py-1 w-100 px-1 border border-success rounded">
+          <!-- <br> -->
+          <small id="error" style="color: red;"></small>
+          <input type="text" id="username" placeholder="username" name="username"
+            class="form-group py-1 w-100 px-1 border border-success rounded">
+          <br>
+          <input type="text" placeholder="email" name="email"
+            class="form-group py-1 w-100 px-1 border border-success rounded">
+          <br>
+          <input type="password" placeholder="Password" name="password"
+            class="form-group py-1 px-1 w-100 br-1 border border-success rounded">
+        </div>
+        <div class="modal-footer">
+          <input type="submit" id="btn" value="Create an Account" class="btn-color btn btn-primary w-100">
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<div class="container">
+  <div class="card-columns">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Card title that wraps to a new line</h5>
+        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
+          content. This content is a little bit longer.</p>
+      </div>
+    </div>
+    <div class="card p-3">
+      <blockquote class="blockquote mb-0 card-body">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+        <footer class="blockquote-footer">
+          <small class="text-muted">
+            Someone famous in <cite title="Source Title">Source Title</cite>
+          </small>
+        </footer>
+      </blockquote>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+    <div class="card bg-primary text-white text-center p-3">
+      <blockquote class="blockquote mb-0">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat.</p>
+        <footer class="blockquote-footer text-white">
+          <small>
+            Someone famous in <cite title="Source Title">Source Title</cite>
+          </small>
+        </footer>
+      </blockquote>
+    </div>
+    <div class="card text-center">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">This card has a regular title and short paragraphy of text below it.</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+    <div class="card p-3 text-right">
+      <blockquote class="blockquote mb-0">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+        <footer class="blockquote-footer">
+          <small class="text-muted">
+            Someone famous in <cite title="Source Title">Source Title</cite>
+          </small>
+        </footer>
+      </blockquote>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">This is another card with title and supporting text below. This card has some additional
+          content to make it slightly taller overall.</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <form action="register" method="POST" >
+  <input type="text" name="name" placeholder="n">
+  <input type="text" name="username" placeholder="u">
+  <input type="password" name="password" placeholder="p">
+  <input type="submit">
+</form> -->
+
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+
+  function changetounderscore(num) {
+    return num.replace(' ', '_');
+  }
+
+  var username = document.querySelector('#username');
+  username.addEventListener('input', function () {
+    var changed = changetounderscore(username.value);
+    username.value = changed;
+    if (changed.trim().length !== 0) {
+      axios.get(`http://localhost:3000/finduser/${changed}`)
+        .then(function (founduser) {
+          if (founduser.data === null) {
+            document.querySelector('#btn').removeAttribute('disabled');
+            username.style.color = 'black';
+            document.querySelector('#error').textContent = ("")
+          } else {
+            document.querySelector('#btn').setAttribute('disabled', 'true');
+            username.style.color = 'red';
+            document.querySelector('#error').textContent = ("Username taken")
+          }
+
+        })
+    } else {
+      document.querySelector('#btn').removeAttribute('disabled');
+      username.style.color = 'black';
+      document.querySelector('#error').textContent = ("")
+    }
+  })
+
+  
+
+</script>
+
+
+<%- include ./partials/footer.ejs%>

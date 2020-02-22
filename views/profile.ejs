@@ -1,0 +1,97 @@
+`<%- include ./partials/header.ejs%>
+
+<div class="container mt-5">
+
+  <div class="container">
+    <div id="profilePic">
+      <i id="pencilicon" class="fa fa-pencil"></i>
+      <img src="<%= username.profilePic%>" alt="">
+    </div>
+    <form id="formprofile" action="/uploadsprofilePic" method="POST" enctype="multipart/form-data">
+      <input id="uploadsprofile" name="file" type="file">
+      <input id="profilesubmit" type="submit">
+    </form>
+  </div>
+
+  <h1 class="text-info"><%= username.name %>, Wellcome To Your Profile</h1>
+  <p class="fluid">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium, dolorem sit! Omnis dicta
+    voluptates accusamus iste quam fugit explicabo similique maxime laudantium. Quo delectus dolorem neque nam
+    natus, assumenda expedita?</p>
+  <form action="createpost" method="POST">
+    <div class="form-group">
+      <label for="exampleFormControlTextarea1">Write a Post</label>
+      <textarea placeholder="Write A Quotes..." name="post" class="form-control" style="resize: none;"
+        id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
+    <input type="submit" class="btn btn-success btn-block" value="Post this Quotes">
+  </form>
+
+  <br><br><br>
+  <h2 id="post-id">Your Posts</h2>
+  <br>
+
+
+  <% posts.reverse().forEach(function(val){ %>
+  <div class="card mb-5 ">
+    <img id="smallprofilepic" src="<%= val.name.profilePic %>" alt="">
+    <h5 id="name" class="card-header pl-5"><%= val.name.name %> <small style="color: royalblue; font-size: 12px;" >(@<%= val.username%>)</small style="color: royalblue; font-size: 12px;" > </h5 s>
+    <div class="card-body">
+      <p class="card-text"><%= val.post %> </p>
+      <br>
+      <small style="font-style: italic;"><span  > Posted on:</span> <%= val.date  %></small>
+      <hr>
+      <a style="cursor: pointer; font-size: 13px;" ><%= val.likes.length %> Like, <%= val.comments.length %> comments  </a>
+      
+      <br>
+      <!-- <a id="like-button" href="/like/<%= val._id%>" class="btn btn-info">Like</a> -->
+      <form action="/comment/<%= val._id%>" method="POST">
+        <a href="like/<%= val._id %>" style="display: inline;"><i id="like-button" style="color: white;"
+            class="fa fa-heart btn btn-info"></i></a>
+        <input type="text" placeholder="Comment..." name="comment" id="comment">
+        <button id="sendbtn" style="background-color: none; outline: none; border: none;"><i
+            style="background-color: transparent; color: cornflowerblue;" class="fa fa-paper-plane"></i></button>
+      </form>
+      <% val.comments.forEach(function(bal){ %>
+        <div class="commentsection">
+          <img id="commentprofilePic" src="<%= bal.profilePic %>" alt="">
+          <p id="show-commentsName"><%= bal.commentsName %></p>
+          <p id="show-comment"><%= bal.comment %></p>  
+        </div>
+      <% }) %>
+      
+      </div>
+  </div>
+  <% }) %>
+
+
+
+</div>
+
+<script>
+
+  var pencilicon= document.querySelector('#pencilicon');
+  var uploadprofile= document.querySelector('#uploadsprofile')
+
+  pencilicon.addEventListener('click', function(){
+    uploadsprofile.click();
+  })
+
+  uploadsprofile.addEventListener('change', function(){
+    profilesubmit.click();
+  })
+
+</script>
+
+
+
+
+<!-- <script>
+    var username = document.querySelector('#username');
+    like.addEventListener("input ", function () {
+      axios.get(`http://localhost:3000/finduser/${username.value}`).then( function (wopost) {
+        console.log(wopost.data.value);
+      })
+    })
+</script> -->
+
+<%- include ./partials/footer.ejs%>
