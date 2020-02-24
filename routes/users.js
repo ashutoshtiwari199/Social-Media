@@ -1,8 +1,7 @@
 const mongoose= require('mongoose');
 
 const plm = require('passport-local-mongoose');
-// mongoose.connect('mongodb://localhost/n4socialmedia');
-mongoose.connect('mongodb+srv://ashutosh123:ashutosh123@testdb-ppgjk.mongodb.net/sample_airbnb?retryWrites=true&w=majority')
+mongoose.connect('mongodb://localhost/n4socialmedia');
 
 
 var userMod=mongoose.Schema({
@@ -16,9 +15,10 @@ var userMod=mongoose.Schema({
   profilePic:{
     type: String,
     default:'./images/uploads/profileimage.jpg'
-    // default: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAH4AdQMBIgACEQEDEQH/xAAbAAEAAwEBAQEAAAAAAAAAAAAAAwQFBgECB//EADQQAAICAQEFBgMHBQEAAAAAAAABAgMEEQUSITGRFUFRUmHREyJxI0JTgaGxwTKCksLxFP/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwD9xAAAAAADxvQD0FC/auNVLdW9Y1z3D5htjGb0asj6uK/hgaII6bq74b9U1KPoSAAAAAAAAAAAAAAEWTdHHplZPlFdTncnNvydVZPSPljwRNtbKd97ri/s63pp4vvZRAAAD7quspnvVTcX6GrgbVlZZGrJ3VrwU1w4+pjgDrwUNkZbyKXCb+evg34ruL4AAAAAAAAAAAcpkRcci2L5qb/cjJ85OOZcpc99kAAAAAABq7Aj9pdLwSRtGRsBPdufdql+5rgAAAAAAAAAAByuWpRyrlNttTfFkRp7bocb42xT0mtHp4ozAAAAADR+HQDX2ApfbS1e7wWndqbBU2ZR8DEgpLSUvml9WWwAAAAAAAAAAA8kk00+TOUuqdN06pc4vQ6wzNr4XxIO+vTfivmXigMMAADU2FTvXTta4RW6vqzLNTY+bCpfAtaim9Yy9fUDbAAAAAAAAAAAA8lKMVrKSS8WwPTG25fGaqhXYno3vKL/AHJsra9VacaPtJePcvcw3xbfqAAAAv42zJZEIzhfXo1xS4tFAs4OZLEm2oqUZf1IDocWiOPTGqLbS72yUq42fj5HCE92XllwZaAAAAAABFdkVUR1tmor1MbI2tdZqqV8NePNmfKUpvWTbfe29QNbJ2zzWND+6fsZl99t71tslL07iMAAAAAAAAAC3j7RyKNFv78V92fEqADfx9rUWcLNa5evLqX4yUlrFpp96ORJaMm7HetNjivDu6AdUDHp218ul1Tb8YACHsbI89XV+w7GyPPV1fsbwAwOx8hPR2VdX7DsfI89XV+xft2ZC3JnfK2xOTTSX3Xw5dCCWxISalLJsdiju/E0Wr4yf+2n5AQdj5Hnq6v2POx8j8Srq/Yty2PW4Qh8WekdddeO99dfojzsaLqlB5NzUnrrrxXJ8PDlxArdjZPnq6v2HY2T56ur9i7fsz4+9vZFibilrFJaaa8uvVJkmNgQxrp2Rssbnrqm/HT2/VgZktk3RekraV38ZHy9mWJ6O/H14cN/x5Gp/wCBRjiwjbNrHi4xdj35SW7u/NJ8X/JDHY8Y0ypV892VcK5eu6ktfrokBRezZp6PIx0+PBz8OZ6tmWSbSvobWmqUuWvIv0bKjTFRV1klGU5Q3uO65LT9Fr/kz5exqXTCuVtnyKtKS05Q1a/Vt/8AAKkdkXyWsbamvRv2Pexsjz1dX7Gps/CrwapV1ttSlvce7gkkvySLQGD2Nk/iVdX7A3gB/9k='
   },
-  posts: Array
+  posts: Array,
+  resetToken:String,
+  resetTime:String
 })
 
 userMod.plugin(plm);

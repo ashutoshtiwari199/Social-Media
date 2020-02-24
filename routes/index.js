@@ -5,6 +5,9 @@ const Post = require('./posts');
 const passport = require('passport');
 const localStrategy = require('passport-local');
 var fs = require('fs');
+
+const crypto = require('crypto')
+const nodemailer = require('nodemailer')
 const multer = require('multer');
 
 // multer file uploads
@@ -51,20 +54,19 @@ router.post('/uploadsprofilePic', isLoggedIn, upload.single('file'), function (r
             res.redirect('/profile')
           })
       }
-      else{
-          fs.unlink("./public/"+founduser.profilePic, function(err){
-            if(err) {console.log(err);}
-            console.log('filedeleted');
-            founduser.profilePic=path;
-            founduser.save()
-            .then(function(val){
-              res.redirect('/profile');    
-          })                
+      else {
+        fs.unlink("./public/" + founduser.profilePic, function (err) {
+          if (err) { console.log(err); }
+          console.log('filedeleted');
+          founduser.profilePic = path;
+          founduser.save()
+            .then(function (val) {
+              res.redirect('/profile');
+            })
         })
       }
     })
 })
-
 
 
 router.get('/profile', isLoggedIn, function (req, res) {
@@ -99,9 +101,81 @@ router.post('/register', function (req, res) {
     })
 })
 
+router.get('/forgot', function (req, res) {
+  res.render('forgotpword', { isLoggedIn: false })
+})
+
+router.post('/forgot', function (req, res) {
+  crypto.randomBytes(30, function (err, token) {
+    var resetToken = token.toString('hex');
+    User.findOne({ email: req.body.email })
+      .then(function (userFound) {
+        userFound.resetToken = resetToken;
+        userFound.resetTime = Date.now() + 8640000;
+        userFound.save()
+          .then(function () {
+            const tp = nodemailer.createTransport({
+              service: "gmail",
+              auth: {
+                user: "youremail@gmail.com",
+                pass: "password"
+              }
+            });
+            const mailOptions = {
+              from: "<QuoteBook>",
+              to: req.body.email,
+              subject: "Testing the nodemailer",
+              text: "reset link : http://" + req.headers.host + "/reset/" + resetToken + '\n\n' + " ignor this mail if not sent by you."
+            }
+            tp.sendMail(mailOptions, function (err) {
+              if (err) {
+                res.json(err)
+              }
+              else {
+                res.send('mail sent')
+              }
+            })
+          })
+      })
+  })
+})
+
+
+router.get('/reset/:token', function (req, res) {
+  User.findOne({ resetToken: req.params.token })
+    .then(function (userFound) {
+      var currentTime = Date.now();
+      if (userFound.resetToken === req.params.token && currentTime < userFound.resetTime) {
+        res.render('newpassword', { isLoggedIn: false, token: req.params.token });
+      }
+      else {
+        res.send('bhagao maakde ko !');
+      }
+    })
+})
+
+router.post('/resetpassword/:token', function (req, res) {
+  User.findOne({ resetToken: req.params.token })
+    .then(function (userFound) {
+      if (req.body.password === req.body.password2) {
+        userFound.setPassword(req.body.password2, function (err) {
+          userFound.resetToken = undefined;
+          userFound.resetTime = undefined;
+          userFound.save()
+            .then(function () {
+              req.logIn(userFound, function (err) {
+                res.redirect('/profile');
+              });
+            })
+        })
+      }
+    })
+})
+
+
 
 router.get('/finduser/:username', function (req, res) {
-  User.findOne({username: req.params.username })
+  User.findOne({ username: req.params.username })
     .then(function (founduser) {
       console.log(founduser);
       res.json(founduser)
