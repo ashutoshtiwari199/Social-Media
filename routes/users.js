@@ -1,7 +1,9 @@
 const mongoose= require('mongoose');
 
 const plm = require('passport-local-mongoose');
-mongoose.connect('mongodb://localhost/n4socialmedia');
+// mongoose.connect('mongodb://localhost/n4socialmedia',{ useNewUrlParser: true } );
+mongoose.connect('mongodb+srv://ashutosh123:ashutosh123@testdb-ppgjk.mongodb.net/sample_airbnb?retryWrites=true&w=majority')
+
 
 
 var userMod=mongoose.Schema({
